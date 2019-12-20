@@ -1,0 +1,48 @@
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>1 Vue lesson</title>
+  <link rel="stylesheet" type="text/css" href="./css/style.css" >
+
+  <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+<div id="app">
+  <!--  <p>{{ name }} - {{ age }}</p>-->
+  <!--  <p>{{ age > 18 ? "Добро пожаловать" : "Надо чуток подрасти" }}</p>-->
+  <!--  <p v-html = "message"></p>-->
+  <!--  <p v-text = message></p>-->
+  <p> {{ message }}</p>
+  <!--  <a v-bind:href = 'link' v-once>{{ text }}</a>-->
+  <a v-bind:href = 'link' >{{ text | capitalize}}</a>
+</div>
+<script>
+  let app = new Vue({
+    el: '#app',
+    data: {
+      name: 'Tom',
+      age: 25,
+      message: '<h2>Привет!!!</h2>',
+      text: 'Google',
+      link: "https://google.com"
+    },
+    filters:{
+      capitalize: function (value) {
+        return value.toUpperCase();
+      }
+    }
+  });
+
+  setTimeout(function () {
+    app.text = 'Яндекс';
+    app.link = 'https://www.ya.ru';
+  }, 5000)
+</script>
+
+
+<script src="./js/task.js"></script>
+</body>
+
+</html>

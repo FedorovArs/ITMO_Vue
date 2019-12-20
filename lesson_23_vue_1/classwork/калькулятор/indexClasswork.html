@@ -1,0 +1,31 @@
+<html>
+
+<head>
+  <title>1 Vue lesson</title>
+  <link rel="stylesheet" type="text/css" href="./css/style.css" >
+</head>
+
+<body>
+<p>x =<input type="text" class="x"></p>
+<p>y =<input type="text" class="y"></p>
+<p>res =<input type="text" class= "res"></p>
+
+<script>
+  let obj = {
+    x:document.querySelector(".x"),
+    y:document.querySelector(".y"),
+    res:document.querySelector(".res")
+  };
+
+  obj.x.addEventListener("change", handler);
+  obj.y.addEventListener("change", handler);
+
+  function handler(e){
+    obj.res.value = parseInt(obj.x.value)
+            + parseInt(obj.y.value);
+  }
+</script>
+<script src="./js/task.js"></script>
+</body>
+
+</html>
