@@ -10,22 +10,35 @@
 <div id="app">
   <header>
     <h1>{{siteName}}</h1>
+    <div>
+      <button v-on:click="showCheckout">
+              <span>{{cartItemCount}}
+              </span> Оформление заказа
+      </button>
+
+    </div>
   </header>
   <main>
-    <div v-bind:data-id="product.id">
-      <div>
-        <figure>
-          <img v-bind:src=product.image>
-        </figure>
-      </div>
-      <div>
-        <h1 v-text="product.title"></h1>
-        <p v-html="product.description"></p>
-        <p>Автор: {{ product.author }}</p>
-        <p>Издательство: {{ product.publisher }}</p>
-        <p>Год: {{ product.year }}</p>
-        <p>Количество страниц: {{ product.pages }}</p>
-        <p>Цена: {{ product.price }}</p>
+    <div v-if="showProduct">
+      <div v-bind:data-id="product.id">
+        <div>
+          <figure>
+            <img style="width: 200px" v-bind:src=product.image>
+          </figure>
+        </div>
+        <div>
+          <h1 v-text="product.title"></h1>
+          <p v-html="product.description"></p>
+          <p>Автор: {{ product.author }}</p>
+          <p>Издательство: {{ product.publisher }}</p>
+          <p>Год: {{ product.year }}</p>
+          <p>Количество страниц: {{ product.pages }}</p>
+          <p>Цена: {{ product.price }}</p>
+          <button
+                  v-on:click="addToCart"
+                  v-if="canAddCart"
+          >Добавить в корзину</button>
+        </div>
       </div>
     </div>
   </main>
@@ -35,6 +48,8 @@
     el: '#app',
     data: {
       siteName: 'Магазин 404 - найдётся всё!',
+      cart:[],
+      showProduct: true,
       product: {
         id:1,
         title: 'Как пасти котов. Наставление для программистов, руководящих другими программистами',
@@ -44,7 +59,34 @@
         pages: 256,
         price: 418,
         year: 2019,
-        image: 'https://cdn1.ozone.ru/multimedia/c1200/1024486505.jpg'
+        image: 'https://cdn1.ozone.ru/multimedia/c1200/1024486505.jpg',
+        avalibleInventory: 5
+      }
+    },
+    computed:{
+      cartItemCount(){
+        return String.fromCharCode(55357, 57042) + "" + this.cart.length || "";
+      },
+      canAddCart(){
+        let id = this.product.id;
+        let itemCount = 0;
+
+        for (let i = 0; i < this.cart.length; i++) {
+          if (this.cart[i] === id){
+            itemCount++;
+          }
+        }
+
+        return this.product.avalibleInventory > itemCount;
+      },
+    },
+    methods:{
+      addToCart(){
+        this.cart.push(this.product.id);
+      },
+
+      showCheckout(){
+        this.showProduct = !this.showProduct;
       }
     }
   });

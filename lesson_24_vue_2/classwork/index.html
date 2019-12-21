@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>2 Vue lesson</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" type="text/css" href="./css/style.css" >
+</head>
+
+<body>
+<div id="app">
+  <!--  <button v-on:click="counter++">+</button>-->
+  <!--  <button @click=";if (counter > 0) &#45;&#45;counter ">-</button>-->
+  <!--  <button v-on:click=increase>+</button>-->
+  <!--  <button @click=decrease>-</button>  -->
+  <!--  <button v-on:click="increase(3, $event)">+</button>-->
+  <!--  <button @click="decrease(2, $event)">-</button>-->
+  <!--  <div>{{counter}}</div>-->
+  <!--  <div>{{age}}</div>-->
+  <!--  <div>{{checkAge}}</div>-->
+  <!--  <button v-on:click="a++">+{{a}}</button>-->
+  <!--  <button @click="b++">-{{b}}</button>-->
+  <!--  <div>Площадь: {{area}}</div>-->
+
+  <!--  <p v-if="visible">Первый параграф</p>-->
+  <!--  <p v-else>Второй параграф</p>-->
+  <!--  <button v-on:click="visible=!visible">{{visible ? 'К параграфу 1' : 'К параграфу 2'}}</button>-->
+
+  <!--  <div v-show="visible">-->
+  <!--    <h1>Заголовок</h1>-->
+  <!--    <p>Текст</p>-->
+  <!--  </div>-->
+  <div v-on:contextmenu.prevent="onHelp">
+    <span>Вызови на мне контекстное меню</span>
+    <span v-show="visible">Справочная информация</span>
+    <a href="#"
+       v-show="visible"
+       v-on:click.prevent="visible=false">Скрыть</a>
+  </div>
+</div>
+
+<script>
+  let app = new Vue({
+    el: '#app',
+    data: {
+      visible: false,
+      counter: 0,
+      age: 18,
+      a: 5,
+      b: 3
+    },
+    beforeUpdate(){
+      console.log('Все данные изменены!');
+    },
+    watch:{
+      a:function (newVal, oldVal) {
+        console.log("a: ", newVal, oldVal);
+      },
+      b:function (newVal, oldVal) {
+        console.log("b: ", newVal, oldVal);
+      },
+      area:function (newVal, oldVal) {
+        console.log("area: ", newVal, oldVal);
+      }
+    },
+    computed:{
+      area(){
+        return this.a * this.b;
+      },
+      checkAge(){
+        if(this.age >= 18){
+          return "Доступ разрешен";
+        } else {
+          return "Доступ запрещен";
+        }
+      }
+    },
+    methods:{
+      onHelp(){
+        this.visible = true;
+      },
+      increase: function (val, e) {
+        this.age+=val;
+
+      },
+      decrease(val, e){
+        if (this.age > val){
+          this.age-=val;
+        }
+      }
+    }
+  });
+</script>
+
+
+<!--<script src="./js/task.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
