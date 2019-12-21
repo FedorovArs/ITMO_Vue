@@ -1,14 +1,71 @@
-<html>
+<!DOCTYPE html>
+<html lang="ru">
 
 <head>
   <title>1 Vue lesson</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <link rel="stylesheet" type="text/css" href="./css/style.css" >
 </head>
 
 <body>
-<p>Начало документа</p>
-<p>Конец документа</p>
-<script src="./js/task.js"></script>
-</body>
+<div id="app">
+<!--    <div class="container">-->
+  <header class="row shadow-sm mb-1 bg-white rounded">
+    <div class="col d-flex align-items-center justify-content-center">
+      <p class="h2">{{siteName}}</p>
+    </div>
+  </header>
 
+  <div id="main-div" class="row align-items-center">
+    <div class="col-5 text-right">
+      <img class="book-img" v-bind:src=product.image alt="Обложка книги">
+    </div>
+    <div class="col-7">
+      <h1 class="text-muted" v-text="product.title"></h1>
+      <p v-html="product.description"></p>
+      <p>Автор: {{product.author}}</p>
+      <p>Издательство: {{product.publisher}}</p>
+      <p>Год: {{product.year}}</p>
+      <p>Количество страниц: {{product.pages}}</p>
+      <p>Стоимость: {{product.price}} &#8381;</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  let app = new Vue({
+    el: '#app',
+    data: {
+      siteName: 'Магазин 404 - найдётся всё!',
+      product: {
+        id:1,
+        title: 'Как пасти котов. Наставление для программистов, руководящих другими программистами',
+        author: 'Рейнвотер Дж. Ханк',
+        publisher: 'Питер',
+        description: '<em>«Как пасти котов»</em> — это книга о лидерстве и руководстве, о том, как первое совмещать со вторым.',
+        pages: 256,
+        price: 418,
+        year: 2019,
+        image: 'https://cdn1.ozone.ru/multimedia/c1200/1024486505.jpg'
+      }
+    }
+  });
+</script>
+
+
+<!--<script src="./js/task.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
 </html>
