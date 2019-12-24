@@ -1,0 +1,15 @@
+#main-div{
+    background-color: #f8f9fa;
+    height: 100%;
+}
+
+.book-img{
+    height: 400px;
+    min-height: 100px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+header{
+    height: 75px;
+}
