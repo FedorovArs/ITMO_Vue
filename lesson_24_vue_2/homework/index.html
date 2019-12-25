@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html lang="ru" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>1 Vue lesson</title>
+    <title>2 Vue lesson</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -14,21 +14,7 @@
 
 <body>
 <div id="app">
-    <!--        <header class="row shadow-sm mb-1 bg-white rounded-->
-    <!--        border border-dark-->
-    <!--         d-flex align-items-center">-->
-    <!--            <div class="col-sm-10 border border-dark-->
-    <!--                        d-flex justify-content-center">-->
-    <!--                &lt;!&ndash;            <div class="col-md-10 d-flex align-items-center justify-content-center">&ndash;&gt;-->
-    <!--                <h2>{{siteName}}</h2>-->
-    <!--            </div>-->
-
-    <!--            <div class="col-sm-2 border border-dark-->
-    <!--                        d-flex align-items-center justify-content-center ">-->
-    <!--                <button type="button" class="btn btn-primary">Корзина</button>-->
-    <!--            </div>-->
-    <!--        </header>-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
 
         <img class="align-items-center"
              src="https://www.pngkey.com/png/full/825-8253645_404-banner-cohort-circle.png"
@@ -42,14 +28,18 @@
 
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" v-on:click="showMainPage">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" v-on:click="showAboutPage">О нас</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" v-on:click="showContactsPage">Контакты</a>
+                </li>
+
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">О нас</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Контакты</a>
+                    <a class="nav-link" href="#" v-on:click="showProductPage">Товар</a>
                 </li>
                 <!--                <li class="nav-item dropdown">-->
                 <!--                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"-->
@@ -67,11 +57,23 @@
     </nav>
 
 
-    <div class="container-fluid">
+    <div id="main-page" v-show="isShowMain" class="container-fluid">
+        Главная страница
+    </div>
 
+    <div id="about-page" v-show="isShowAbout" class="container-fluid">
+        Страница О нас
+    </div>
+
+    <div id="contacts-page" v-show="isShowContacts" class="container-fluid">
+        Главная страница
+    </div>
+
+    <div id="product-page" v-show="isShowProduct" class="container-fluid">
         <div id="main-div" class="row align-items-center">
             <div class="col-md-5 d-flex justify-content-center">
-                <img class="img-thumbnail border-dark mx-auto" v-bind:src=product.image alt="Обложка книги">
+                <img class="img-thumbnail border-dark mx-auto"
+                     v-bind:src=product.image alt="Обложка книги">
             </div>
             <div id="item-description" class="col-md-7 col-md-auto">
                 <h1 class="text-muted" v-text="product.title"></h1>
@@ -81,6 +83,14 @@
                 <p>Год: {{product.year}}</p>
                 <p>Процессор: {{product.cpu}}</p>
                 <p>Стоимость: {{product.price}} &#8381;</p>
+                <p>
+                    <button type="button" class="btn btn-info"
+                            v-on:click="visible=!visible">
+                        {{visible?'Скрыть подробное описание':'Показать подробное описание'}}
+                    </button>
+                </p>
+                <p v-show="visible">Полное описание : {{product.fullDescription}}
+                    <a target="_blank" v-bind:href="product.fullDescriptionUrl">Подробнее ...</a></p>
             </div>
         </div>
     </div>
@@ -91,17 +101,71 @@
         el: '#app',
         data: {
             siteName: 'Магазин 404 - найдётся всё!',
+            visible: false,
+            isShowProduct: true,
+            isShowMain: false,
+            isShowAbout: false,
+            isShowContacts: false,
             product: {
                 id: 1,
                 title: 'Ноутбук Acer Predator 15 G9-593-504U (Intel Core i5 6300HQ 2300 MHz/ 15.6"/ 1920x1080/ 16Gb/ 1128Gb HDD+SSD/ DVD-RW/ NVIDIA GeForce GTX 1070/ Wi-Fi/ Bluetooth/ Linux)',
                 companyName: 'Acer',
                 madeIn: 'Китай',
                 description: 'Игровой ноутбук',
+                fullDescription: 'Для самых требовательных геймеров была создана и выпущена новая линейка игровых ноутбуков ' +
+                    'Acer Predator. Теперь все любимые миллионами игры будут запускаться с одного клика, ' +
+                    'а сверхчеткая графика перемещать вас в виртуальную реальность.',
+                fullDescriptionUrl: 'https://3dnews.ru/928187',
                 cpu: 'Intel Core i5 6300HQ 2300 MHz',
                 price: 123_900,
                 year: 2019,
                 image: 'https://avatars.mds.yandex.net/get-mpic/195452/img_id3189140205350769844/orig'
             }
+        },
+        methods: {
+            changeActiveClass(id) {
+                let arr = document.getElementsByClassName("active");
+                arr[0].classList.remove("active");
+
+                console.log(id);
+                let elementMustBeActive = document.getElementById(id);
+                console.log(elementMustBeActive);
+                elementMustBeActive.classList.add("active");
+                let elementMustBeActive2 = document.getElementById(id);
+                console.log(elementMustBeActive2);
+            },
+
+            showMainPage() {
+                app.isShowProduct = false;
+                app.isShowMain = true;
+                app.isShowAbout = false;
+                app.isShowContacts = false;
+
+                app.changeActiveClass("main-page");
+            },
+            showAboutPage() {
+                app.isShowProduct = false;
+                app.isShowMain = false;
+                app.isShowAbout = true;
+                app.isShowContacts = false;
+                app.changeActiveClass("about-page");
+            },
+            showContactsPage() {
+                app.isShowProduct = false;
+                app.isShowMain = false;
+                app.isShowAbout = false;
+                app.isShowContacts = true;
+
+                app.changeActiveClass("contacts-page");
+            },
+            showProductPage() {
+                app.isShowProduct = true;
+                app.isShowMain = false;
+                app.isShowAbout = false;
+                app.isShowContacts = false;
+
+                app.changeActiveClass("product-page");
+            },
         }
     });
 </script>
