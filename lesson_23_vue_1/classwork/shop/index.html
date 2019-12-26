@@ -1,95 +1,208 @@
 <html xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>1 Vue lesson</title>
-  <!-- версия для разработки, отображает полезные предупреждения в консоли -->
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>1 Vue lesson</title>
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
 <div id="app">
-  <header>
-    <h1>{{siteName}}</h1>
-    <div>
-      <button v-on:click="showCheckout">
+    <header>
+        <h1>{{siteName}}</h1>
+        <div>
+            <button v-on:click="showCheckout">
               <span>{{cartItemCount}}
               </span> Оформление заказа
-      </button>
+            </button>
 
-    </div>
-  </header>
-  <main>
-    <div v-if="showProduct">
-      <div v-bind:data-id="product.id">
-        <div>
-          <figure>
-            <img style="width: 200px" v-bind:src=product.image>
-          </figure>
         </div>
-        <div>
-          <h1 v-text="product.title"></h1>
-          <p v-html="product.description"></p>
-          <p>Автор: {{ product.author }}</p>
-          <p>Издательство: {{ product.publisher }}</p>
-          <p>Год: {{ product.year }}</p>
-          <p>Количество страниц: {{ product.pages }}</p>
-          <p>Цена: {{ product.price }}</p>
-          <button
-                  v-on:click="addToCart"
-                  v-if="canAddCart"
-          >Добавить в корзину</button>
+    </header>
+    <main>
+        <div v-if="showProduct">
+            <div v-bind:data-id="product.id">
+                <div>
+                    <figure>
+                        <img style="width: 200px" v-bind:src=product.image>
+                    </figure>
+                </div>
+                <div>
+                    <h1 v-text="product.title"></h1>
+                    <p v-html="product.description"></p>
+                    <p>Автор: {{ product.author }}</p>
+                    <p>Издательство: {{ product.publisher }}</p>
+                    <p>Год: {{ product.year }}</p>
+                    <p>Количество страниц: {{ product.pages }}</p>
+                    <p>Цена: {{ product.price }}</p>
+                    <button
+                            v-on:click="addToCart"
+                            v-if="canAddCart"
+                    >Добавить в корзину
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </main>
+        <div v-else>
+            <div>
+                <div>
+                    <p>Оформление заказа</p>
+                </div>
+                <div>
+                    <strong>Имя:</strong>
+                    <input
+                            type="text"
+                            v-model.trim="order.firstName">
+                </div>
+                <div>
+
+                    <strong>Фамилия:</strong>
+                    <input
+                            type="text"
+                            v-model.trim="order.lastName">
+
+                </div>
+                <div>
+
+                    <strong>Адрес:</strong>
+                    <input
+                            type="text"
+                            v-model="order.address">
+
+                </div>
+                <div>
+
+                    <strong>Город:</strong>
+                    <input
+                            type="text"
+                            v-model="order.city">
+
+                </div>
+                <div>
+
+                    <strong>Страна:</strong>
+                    <select v-model="order.country">
+                        <option>Россия</option>
+                        <option>Белоруссия</option>
+                        <option>Казахстан</option>
+                    </select>
+                </div>
+                <div>
+                    <strong>Индекс:</strong>
+                    <input
+                            type="text"
+                            v-model.number="order.zip">
+                </div>
+                <div>
+                    <label>
+                        <input
+                                type="checkbox"
+                                v-model="order.gift"
+                                true-value="да"
+                                false-value="нет"
+                        >
+                        Подарочная упаковка
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        <input
+                                type="radio"
+                                value="Домашний адрес"
+                                v-model="order.typeAddress"
+                        >
+                        Дом
+                    </label>
+                    <label>
+                        <input
+                                type="radio"
+                                value="Рабочий адрес"
+                                v-model="order.typeAddress"
+                        >
+                        Работа
+                    </label>
+                </div>
+                <div>
+                    <button @click="submitForm">Заказать</button>
+                </div>
+
+                <div>
+                  <pre>
+                    Имя: {{order.firstName}}
+                    Фамилия: {{order.lastName}}
+                    Адрес: {{order.address}}
+                    Город: {{order.country}}
+                    Почтовый индекс: {{order.zip}}
+                    Подарочная упаковка: {{order.gift}}
+                    Тип адреса: {{order.typeAddress}}
+                  </pre>
+                </div>
+
+
+            </div>
+        </div>
+    </main>
 </div>
 <script>
-  let app = new Vue({
-    el: '#app',
-    data: {
-      siteName: 'Магазин 404 - найдётся всё!',
-      cart:[],
-      showProduct: true,
-      product: {
-        id:1,
-        title: 'Как пасти котов. Наставление для программистов, руководящих другими программистами',
-        author: 'Рейнвотер Дж. Ханк',
-        publisher: 'Питер',
-        description: '<em>«Как пасти котов»</em> — это книга о лидерстве и руководстве, о том, как первое совмещать со вторым.',
-        pages: 256,
-        price: 418,
-        year: 2019,
-        image: 'https://cdn1.ozone.ru/multimedia/c1200/1024486505.jpg',
-        avalibleInventory: 5
-      }
-    },
-    computed:{
-      cartItemCount(){
-        return String.fromCharCode(55357, 57042) + "" + this.cart.length || "";
-      },
-      canAddCart(){
-        let id = this.product.id;
-        let itemCount = 0;
+    let app = new Vue({
+        el: '#app',
+        data: {
+            order: {
+                firstName: '',
+                lastName: '',
+                address: '',
+                city: '',
+                country: '',
+                zip: '',
+                gift: false,
+                typeAddress: 'Домашний адрес'
+            },
+            siteName: 'Магазин 404 - найдётся всё!',
+            cart: [],
+            showProduct: true,
+            product: {
+                id: 1,
+                title: 'Как пасти котов. Наставление для программистов, руководящих другими программистами',
+                author: 'Рейнвотер Дж. Ханк',
+                publisher: 'Питер',
+                description: '<em>«Как пасти котов»</em> — это книга о лидерстве и руководстве, о том, как первое совмещать со вторым.',
+                pages: 256,
+                price: 418,
+                year: 2019,
+                image: 'https://cdn1.ozone.ru/multimedia/c1200/1024486505.jpg',
+                avalibleInventory: 5
+            }
+        },
+        computed: {
+            cartItemCount() {
+                return String.fromCharCode(55357, 57042) + "" + this.cart.length || "";
+            },
+            canAddCart() {
+                let id = this.product.id;
+                let itemCount = 0;
 
-        for (let i = 0; i < this.cart.length; i++) {
-          if (this.cart[i] === id){
-            itemCount++;
-          }
+                for (let i = 0; i < this.cart.length; i++) {
+                    if (this.cart[i] === id) {
+                        itemCount++;
+                    }
+                }
+
+                return this.product.avalibleInventory > itemCount;
+            },
+        },
+        methods: {
+            submitForm() {
+                alert("Заказ оформлен");
+            },
+            addToCart() {
+                this.cart.push(this.product.id);
+            },
+
+            showCheckout() {
+                this.showProduct = !this.showProduct;
+            }
         }
-
-        return this.product.avalibleInventory > itemCount;
-      },
-    },
-    methods:{
-      addToCart(){
-        this.cart.push(this.product.id);
-      },
-
-      showCheckout(){
-        this.showProduct = !this.showProduct;
-      }
-    }
-  });
+    });
 </script>
 </body>
 </html>

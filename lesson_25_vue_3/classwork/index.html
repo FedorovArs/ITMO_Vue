@@ -13,29 +13,244 @@
 
 <body>
 <div id="app">
-<!--  <input type="text" v-model="name">-->
-  <input type="text" v-model="number">
-  <br>
-  <!--  <p>{{name}}</p>-->
-  <p>Факториал числа {{number}} равен {{factorial(number)}}</p>
+    <!--  <input type="text" v-model="name">-->
+    <!--  <p>{{name}}</p>-->
+
+    <!--  <input type="text" v-model="number">-->
+    <!--  <br>-->
+    <!--  <p>Факториал числа {{number}} равен {{factorial(number)}}</p>-->
+
+    <label>Введите комментарий</label>
+    <textarea v-model="message"></textarea>
+    <br>
+    <div>
+        <h3>Комментарий</h3>
+        <p style="white-space: pre-line">{{message}}</p>
+    </div>
+
+
+    <!--    <input id="ch_box"-->
+    <!--           type="checkbox"-->
+    <!--           v-model="checked"-->
+    <!--           true-value="да"-->
+    <!--           false-value="нет">-->
+    <!--    <label for="ch_box">{{checked}}</label>-->
+
+    <!--    <input id="ch_box" type="checkbox"-->
+    <!--           value="Tom" v-model="selectedUser"-->
+    <!--    >-->
+    <!--    <label for="ch_box">Tom</label>-->
+    <!--    <input id="ch_box2" type="checkbox"-->
+    <!--           value="Sasha" v-model="selectedUser"-->
+    <!--    >-->
+    <!--    <label for="ch_box2">Sasha</label>-->
+    <!--    <input id="ch_box3" type="checkbox"-->
+    <!--           value="Petr" v-model="selectedUser"-->
+    <!--    >-->
+    <!--    <label for="ch_box3">Petr</label>-->
+    <!--    <span>{{selectedUser}}</span>-->
+
+    <!--    <input id="ch_box" type="radio"-->
+    <!--           v-bind:value="variant1" v-model="selectedUser"-->
+    <!--    >-->
+    <!--    <label for="ch_box">{{variant1}}</label>-->
+    <!--    <input id="ch_box2" type="radio"-->
+    <!--           v-bind:value="variant2" v-model="selectedUser"-->
+    <!--    >-->
+    <!--    <label for="ch_box2">{{variant2}}</label>-->
+    <!--    <input id="ch_box3" type="radio"-->
+    <!--           v-bind:value="variant3" v-model="selectedUser"-->
+    <!--    >-->
+    <!--    <label for="ch_box3">{{variant3}}</label>-->
+    <!--    <br>-->
+    <!--    <span>{{selectedUser}}</span>-->
+
+    <!--    <label>-->
+    <!--        <input type="radio"-->
+    <!--               v-bind:value="{name: 'Tom', age: 18}"-->
+    <!--               v-model="selectedUser"-->
+    <!--        >-->
+    <!--        Tom-->
+    <!--    </label>-->
+    <!--    <label>-->
+    <!--        <input type="radio"-->
+    <!--               v-bind:value="{name: 'Bob', age: 23}"-->
+    <!--               v-model="selectedUser"-->
+    <!--        >-->
+    <!--        Bob-->
+    <!--    </label>-->
+    <!--    <label>-->
+    <!--        <input type="radio"-->
+    <!--               v-bind:value="{name: 'Sasha', age: 32}"-->
+    <!--               v-model="selectedUser"-->
+    <!--        >-->
+    <!--        Sasha-->
+    <!--    </label>-->
+    <!--    <br>-->
+    <!--    <span>{{selectedUser.name}} - {{selectedUser.age}}</span>-->
+
+    <!--    <select v-model="selectedUser" multiple>-->
+    <!--        <option>Tom</option>-->
+    <!--        <option>Sasha</option>-->
+    <!--        <option>Petr</option>-->
+    <!--    </select>-->
+    <!--    <span>{{selectedUser}}</span>    -->
+
+    <!--    <select v-model="selectedUser">-->
+    <!--        <option :value="metree">м</option>-->
+    <!--        <option :value="kilogram">кг</option>-->
+    <!--        <option :value="second">сек</option>-->
+    <!--    </select>-->
+    <!--    <span>{{selectedUser}}</span>-->
+
+    <!--    <ul>-->
+    <!--        <li v-for="phone in phones">{{phone}}</li>-->
+    <!--    </ul>-->
+
+    <!--    <ul>-->
+    <!--        <li v-for="user in users">-->
+    <!--            <p v-for="(value, key) in user">-->
+    <!--                {{key}}:{{value}}-->
+    <!--            </p>-->
+    <!--        </li>-->
+    <!--    </ul>-->
+
+
+    <!--    <ul>-->
+    <!--        <template v-for="user in users">-->
+    <!--            <li>{{user.name}}</li>-->
+    <!--            <li>{{user.age}}</li>-->
+    <!--            <li>{{$data.user}}</li>-->
+    <!--        </template>-->
+    <!--    </ul>-->
+
+    <!--    <ul>-->
+    <!--        <li v-for="n in 10">{{n}}</li>-->
+    <!--    </ul>-->
+
+    <!--    <ul>-->
+    <!--        <li v-for="n in arr.length">{{n}} {{arr[n-1]}}</li>-->
+    <!--    </ul>-->
+
+    <!--    <template v-for="user in users">-->
+    <!--        <label>-->
+    <!--            <input type="checkbox"-->
+    <!--                   :value="user"-->
+    <!--                   v-model="selectedUsers">-->
+    <!--        {{user.name}}</label>-->
+    <!--    </template>-->
+
+    <!--    <ul>-->
+    <!--        <li v-for="user in selectedUsers">-->
+    <!--            {{user.name}} - {{user.age}}-->
+    <!--        </li>-->
+    <!--    </ul>-->
+
+    <!--    <template v-for="user in users">-->
+    <!--        <label>-->
+    <!--            <input-->
+    <!--                    type="radio"-->
+    <!--                    :value="user"-->
+    <!--                    v-model="selectedUsers"-->
+    <!--            >-->
+    <!--            {{user.name}}</label>-->
+    <!--    </template>-->
+
+    <!--    <span v-if="selectedUsers!=null">-->
+    <!--                {{selectedUsers.name}} - {{selectedUsers.age}}-->
+    <!--        </span>-->
+
+    <!--    <select v-model="selectedUsers" multiple>-->
+    <!--        <option-->
+    <!--                v-for="user in users"-->
+    <!--                :value="user">{{user.name}}-->
+    <!--        </option>-->
+    <!--    </select>-->
+
+    <!--    <ul>-->
+    <!--        <li v-for="user in selectedUsers">-->
+    <!--            {{user.name}} - -->
+    <!--            {{user.age}}-->
+    <!--        </li>-->
+    <!--    </ul>-->
+
+    <!--    <input type="text" v-model.lazy="name">-->
+    <!--    <span>{{name}}</span>-->
+
+    <!--    <input type="text" v-model.number="age">-->
+    <!--    <span>{{age}}</span>    -->
+
+    <!--    <input type="text" v-model.lazy.trim="message">-->
+    <!--    <span>{{message}}</span>-->
+
+    <li v-for="n in arr">
+        {{n}}
+    </li>
+    <button @click="sort">Пересортировать</button>
+
+
 </div>
 
 <script>
     let app = new Vue({
         el: '#app',
         data: {
-          name: 'Tom',
-          number: 1
+            age: 10,
+            // message: '',
+            // selectedUsers: [],
+            // selectedUsers: null,
+            // selectedUser: null,
+            selectedUsers: [],
+            users: [
+                {
+                    name: 'Sasha',
+                    age: 18
+                },
+                {
+                    name: 'Tom',
+                    age: 25
+                },
+                {
+                    name: 'Petr',
+                    age: 32
+                }
+
+            ],
+            // arr: ["tекст1", "tекст2", "tекст3"],
+            arr: [1, 2, 3, 4, 5],
+            user: "new User()",
+            phones: ['iPhone', 'Galaxy', 'Nokia'],
+            metree: 'метр',
+            kilogram: 'килограм',
+            second: 'секунды',
+            name: 'Tom',
+            number: 1,
+            message: "Некое сообщение",
+            checked: "да",
+            // selectedUser: [],
+            // selectedUser: '',
+            // selectedUser: {},
+            // selectedUser: 'Tom',
+            // selectedUser: [],
+            variant1: "Tom",
+            variant2: "Sasha",
+            variant3: "Petr"
         },
 
         methods: {
-          factorial(n){
-            let result = 1;
-            for (let i = 1; i <= n; i++) {
-              result *= i;
+            sort() {
+                this.arr.sort(() => {
+                    return Math.random() * 2 - 1;
+                })
+
+            },
+            factorial(n) {
+                let result = 1;
+                for (let i = 1; i <= n; i++) {
+                    result *= i;
+                }
+                return result;
             }
-            return result;
-          }
         }
     });
 </script>
