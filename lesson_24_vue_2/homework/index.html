@@ -28,17 +28,17 @@
 
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li id="main-page" class="nav-item">
                     <a class="nav-link" href="#" v-on:click="showMainPage">Главная</a>
                 </li>
-                <li class="nav-item">
+                <li id="about-page" class="nav-item">
                     <a class="nav-link" href="#" v-on:click="showAboutPage">О нас</a>
                 </li>
-                <li class="nav-item">
+                <li id="contacts-page" class="nav-item">
                     <a class="nav-link" href="#" v-on:click="showContactsPage">Контакты</a>
                 </li>
 
-                <li class="nav-item active">
+                <li id="product-page" class="nav-item active">
                     <a class="nav-link" href="#" v-on:click="showProductPage">Товар</a>
                 </li>
                 <!--                <li class="nav-item dropdown">-->
@@ -57,19 +57,19 @@
     </nav>
 
 
-    <div id="main-page" v-show="isShowMain" class="container-fluid">
+    <div v-show="isShowMain" class="container-fluid">
         Главная страница
     </div>
 
-    <div id="about-page" v-show="isShowAbout" class="container-fluid">
+    <div v-show="isShowAbout" class="container-fluid">
         Страница О нас
     </div>
 
-    <div id="contacts-page" v-show="isShowContacts" class="container-fluid">
-        Главная страница
+    <div v-show="isShowContacts" class="container-fluid">
+        Страница контактов
     </div>
 
-    <div id="product-page" v-show="isShowProduct" class="container-fluid">
+    <div v-show="isShowProduct" class="container-fluid">
         <div id="main-div" class="row align-items-center">
             <div class="col-md-5 d-flex justify-content-center">
                 <img class="img-thumbnail border-dark mx-auto"
@@ -127,12 +127,8 @@
                 let arr = document.getElementsByClassName("active");
                 arr[0].classList.remove("active");
 
-                console.log(id);
                 let elementMustBeActive = document.getElementById(id);
-                console.log(elementMustBeActive);
                 elementMustBeActive.classList.add("active");
-                let elementMustBeActive2 = document.getElementById(id);
-                console.log(elementMustBeActive2);
             },
 
             showMainPage() {
