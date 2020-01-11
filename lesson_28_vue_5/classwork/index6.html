@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .tab-button-active {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <h2>User</h2>
+    <useredit :user="user"></useredit>
+    <userinfo :user="user"></userinfo>
+
+</div>
+<script>
+    let eventBus = new Vue();
+
+    Vue.component('useredit', {
+        props: ['user'],
+        data: function () {
+            return {
+                userName: this.user
+            }
+        },
+        template: `<div>
+                <input type="text" v-model="userName">
+                <button @click="save">Save</button>
+            </div>`,
+        methods: {
+            save() {
+                eventBus.$emit('userchange', this.userName);
+            }
+        }
+
+    });
+
+    Vue.component('userinfo', {
+        props: ['user'],
+        data: function () {
+            return {
+                userName: this.user
+            }
+        },
+        template: `<div>
+                <p>{{userName}}</p>
+            </div>`,
+        created() {
+            eventBus.$on('userchange', (val) => {
+                this.userName = val;
+            });
+        }
+    });
+
+    let app = new Vue({
+        el: "#app",
+        data: {
+            user: 'Sasha'
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .tab-button-active {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <h2>Hello, {{name}}</h2>
+    <useredit
+            :user="name"
+            @userchange="changeName"
+    ></useredit>
+    <button @click="resetName">Reset</button>
+</div>
+<script>
+
+    Vue.component('useredit', {
+        props: ['user'],
+        template: `<div>
+                <input type="text"
+                    v-bind:value="user"
+                    @input="onUserChange($event.target.value)"
+                >
+                <p>Name: {{user}}</p>
+            </div>`,
+        methods: {
+            onUserChange(val) {
+                this.$emit('userchange', val);
+            }
+        }
+    });
+
+    let app = new Vue({
+        el: "#app",
+        data: {
+            name: 'Tom'
+        },
+        methods: {
+            resetName() {
+                this.name = 'Bob';
+            },
+            changeName(name) {
+                this.name = name;
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

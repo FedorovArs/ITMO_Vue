@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .tab-button-active {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <userlist :users="users"></userlist>
+</div>
+<script>
+    Vue.component('userdetails', {
+        props:["user"],
+        template:`<div>
+                    <p>{{user.name}}</p>
+                    <p>{{user.age}}</p>
+                </div>`
+    });
+
+    Vue.component('userlist', {
+        props:{
+            'users':{
+                type: Array,
+                default: function(){
+                    return []
+                }
+            }
+        },
+        template: `<div>
+                <userdetails
+                    v-for="user in users" :key="user.name"
+                    :user = "user"
+                >
+                </userdetails>
+            </div>`
+    });
+
+    let app = new Vue({
+        el:"#app",
+        data: {
+            users:[{
+                name:'Tom',
+                age: 18
+            }, {
+                name:'Sasha',
+                age: 21
+            }]
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>5 Vue lesson</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <style>
+        .tab-button-active {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+
+    <message-box v-bind:message="welcome"></message-box>
+    <message-box message="hello2"></message-box>
+    <message-box message="hello3"></message-box>
+
+
+    <!--    <counter></counter>-->
+
+    <!--    <table>-->
+    <!--        <tr is="first-row"></tr>-->
+    <!--        <tr is="second-row"></tr>-->
+    <!--        <tr is="third-row"></tr>-->
+    <!--    </table>-->
+    <!--    <button v-for="tab in tabs"-->
+    <!--            @click="currentTab = tab"-->
+    <!--            class="tab-class"-->
+    <!--            v-bind:class="{'tab-button-active': tab === currentTab}">-->
+    <!--        {{tab}}-->
+    <!--    </button>-->
+    <!--    <component v-bind:is="currentTabComponent"></component>-->
+    <!--    <table>-->
+    <!--        <tr is="blog-post-row"></tr>-->
+    <!--    </table>-->
+</div>
+<!--<div id="app">-->
+<!--    <section-header></section-header>-->
+<!--    <section-content></section-content>-->
+<!--    <section-footer></section-footer>-->
+<!--</div>-->
+<!--<div id="app2">-->
+<!--    <section-header></section-header>-->
+<!--    <section-content></section-content>-->
+<!--    <section-footer></section-footer>-->
+<!--</div>-->
+
+<!--<div id="app2">-->
+<!--    <hello></hello>-->
+<!--    <hello></hello>-->
+
+<!--</div>-->
+
+<script>
+    // Vue.component('blog-post-row', {
+    //     template: '<tr><td>Cell1</td><td>Cell2</td></tr>'
+    // });
+    //
+    // Vue.component('tab-home', {
+    //     template: '<div>Home</div>'
+    // });
+    // Vue.component('tab-posts', {
+    //     template: '<div>Posts</div>'
+    // });
+    // Vue.component('tab-archive', {
+    //     template: '<div>Archive</div>'
+    // });
+
+
+    // Vue.component('section-header', {
+    //     template: '<h2>Header</h2>'
+    // });
+    //
+    // let content1 = {
+    //     template: '<div>Content 1</div>'
+    // };
+    //
+    // let footer1 = {
+    //     template: '<div>Footer 1</div>'
+    // };
+    //
+    // let content2 = {
+    //     template: '<div>Content 2</div>'
+    // };
+    //
+    // let footer2 = {
+    //     template: '<div>Footer 2</div>'
+    // };
+
+    Vue.component('message-box', {
+        props:['message'],
+        template: `<h2>{{message}}</h2>`
+    });
+
+    // Vue.component('counter', {
+    //     data: function(){
+    //         return {
+    //             header: 'Counter program',
+    //             count: 0
+    //         }
+    //     },
+    //     template: `<div><h2>{{header}}</h2>
+    //             <button @click="increase">+</button>
+    //             <span>{{count}}</span></div>`,
+    //     methods: {
+    //         increase(){
+    //             this.count++;
+    //         }
+    //     }
+    // });
+
+    let app = new Vue({
+        el: "#app",
+        components: {
+            // 'section-content': content1,
+            // 'section-footer': footer1
+
+            'firstRow': {
+                template: '<tr><td>Cell-1</td></tr>'
+            },
+            'SecondRow': {
+                template: '<tr><td>Cell-2</td></tr>'
+            },
+            'third-row': {
+                template: '<tr><td>Cell-3</td></tr>'
+            },
+
+        },
+        data: {
+            currentTab: 'home',
+            tabs: ['home', 'posts', 'archive'],
+
+            welcome: 'hello'
+        },
+        computed: {
+            currentTabComponent() {
+                return 'tab-' + this.currentTab;
+            }
+        }
+    });
+
+    // let app2 = new Vue({
+    //     el: "#app2",
+    //     components: {
+    //         'section-content': content2,
+    //         'section-footer': footer2
+    //     }
+    // });
+
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
