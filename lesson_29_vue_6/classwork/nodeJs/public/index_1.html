@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.1.4/dist/vue-router.js"></script>
+    <style>
+        .active {
+            color:red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li><router-link
+                to="/"
+                exact
+                active-class="active"
+        >Домой</router-link></li>
+        <li><router-link
+                to="/about"
+                active-class="active"
+        >О нас</router-link></li>
+        <li><router-link
+                to="/err"
+                active-class="active"
+        >Битая</router-link></li>
+        <li><router-link
+                to="/products"
+                active-class="active"
+        >Продукты</router-link></li>
+
+    </ul>
+    <router-view></router-view>
+</div>
+<script>
+    const NotFound = {
+        template: '<h2>Старницы отсутствет</h2>'
+    };
+    const Home = {
+        template: '<h2>Домашняя старница</h2>'
+    };
+    const About = {
+        template: '<h2>О нас</h2>'
+    };
+    const Products = {
+        template: `<div>
+                <h2>Список товаров</h2>
+                <router-view></router-view>
+            </div>`
+    };
+
+    const Index = {
+        template: `<div>
+                <h3>Выберете категорию</h3>
+                <li><router-link
+                to="/products/phones"
+                active-class="active"
+                >Телефоны</router-link></li>
+                <li><router-link
+                    to="/products/tablets"
+                    active-class="active"
+                    >Планшеты</router-link></li>
+            </div>`
+    }
+
+    const Tablets = {
+        template: `<div>
+                <h2>Планшеты</h2>
+            </div>`
+    };
+
+    const Phones = {
+        template: `<div>
+                <h2>Телефоны</h2>
+            </div>`
+    };
+
+    const router = new VueRouter({
+        mode: 'history',
+        routes: [
+            { path: '*', component: NotFound },
+            { path: '/about', component: About },
+            { path: '/', component: Home },
+            {
+                path: '/products',
+                component:Products,
+                children: [
+                    {
+                        path: 'phones',
+                        component: Phones
+                    },
+                    {
+                        path: 'tablets',
+                        component: Tablets
+                    },
+                    {
+                        path: '',
+                        component: Index
+                    }
+                ]
+            }
+        ]
+    });
+
+    const app = new Vue({
+        el:"#app",
+        router: router
+    });
+</script>
+</body>
+</html>

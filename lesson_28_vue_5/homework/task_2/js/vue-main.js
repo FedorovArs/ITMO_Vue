@@ -14,6 +14,10 @@ Vue.component('carousel', {
     },
     methods: {
         startTextSlider(messages, timeout) {
+            if (this.timerId) {
+                clearInterval(this.timerId);
+            }
+
             function getCurrentMsg(messages) {
                 if ((messages.length === 1) && (messages[0] === '')) {
                     alert('Заполните фразы');

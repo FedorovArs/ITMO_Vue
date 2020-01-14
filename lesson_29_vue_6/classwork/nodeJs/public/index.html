@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.1.4/dist/vue-router.js"></script>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li>
+            <router-link
+                    to="/"
+                    exact
+                    active-class="active"
+            >Домой
+            </router-link>
+        </li>
+        <li>
+            <router-link
+                    to="/about"
+                    active-class="active"
+            >О нас
+            </router-link>
+        </li>
+        <li>
+            <router-link
+                    to="/err"
+                    active-class="active"
+            >Битая
+            </router-link>
+        </li>
+        <li>
+            <router-link
+                    :to="{
+                    name: 'products',
+                    params: {
+                        id: 100
+                    }
+                }"
+                    active-class="active"
+            >Продукт 100
+            </router-link>
+        </li>
+    </ul>
+    <router-view name="header"></router-view>
+    <router-view></router-view>
+</div>
+<script>
+    const MainHeader = {
+        template: '<h1>Банер</h1>'
+    };
+    const NotFound = {
+        template: '<h2>Старницы отсутствет</h2>'
+    };
+    const Home = {
+        template: '<h2>Домашняя старница</h2>'
+    };
+    const About = {
+        template: '<h2>О нас</h2>'
+    };
+    const Products = {
+        template: `<div>
+                <h2>Товар {{$route.params.id}}</h2>
+
+            </div>`
+    };
+
+    const router = new VueRouter({
+        mode: 'history',
+        routes: [
+            {
+                path: '/404',
+                components: {
+                    default: NotFound,
+                    header: MainHeader
+                }
+            },
+            {
+                path: '*', redirect: '/404'
+            },
+            {
+                path: '/about',
+                components: {
+                    default: About,
+                    header: MainHeader
+                }
+            },
+            {
+                path: '/',
+                component: Home
+            },
+            {
+                path: '/products/:id',
+                components: {
+                    default: Products,
+                    header: MainHeader
+                },
+                name: 'products'
+            }
+        ]
+    });
+
+    const app = new Vue({
+        el: "#app",
+        router: router
+    });
+</script>
+</body>
+</html>
