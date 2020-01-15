@@ -11,12 +11,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--  Main Vue App-->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--    Vue Router-->
+    <script src="https://unpkg.com/vue-router@3.1.4/dist/vue-router.js"></script>
     <!--    CSS-->
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 
 <body>
 <div id="app">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/main" exact active-class="active">Главная</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/projects" active-class="active">Проекты</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/services" active-class="active">Услуги</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/contacts" active-class="active">Контакты</router-link>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
     <router-view></router-view>
 
 </div>

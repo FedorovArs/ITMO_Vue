@@ -1,14 +1,20 @@
-const Main = {
-    template: '<h1>Банер</h1>'
-};
-const NotFound = {
-    template: '<h2>Старницы отсутствет</h2>'
-};
 const Home = {
     template: '<h2>Домашняя старница</h2>'
 };
-const About = {
-    template: '<h2>О нас</h2>'
+const Main = {
+    template: '<h2>Главная</h2>'
+};
+const Projects = {
+    template: '<h2>Проекты</h2>'
+};
+const Services = {
+    template: '<h2>Сервисы</h2>'
+};
+const Contacts = {
+    template: '<h2>Контакты</h2>'
+};
+const NotFound = {
+    template: '<h2>Старницы отсутствет</h2>'
 };
 
 const router = new VueRouter({
@@ -16,8 +22,10 @@ const router = new VueRouter({
     routes: [
         {path: '/', component: Home},
         {path: '/main', component: Main},
-        {path: '/about', component: About},
-        {path: '/', component: Home},
+        {path: '/projects', component: Projects},
+        {path: '/services', component: Services},
+        {path: '/contacts', component: Contacts},
+        {path: '*', component: NotFound},
     ]
 });
 
