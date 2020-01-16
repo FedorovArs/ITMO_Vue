@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .translate-fade-enter-active, .translate-fade-leave-active {
+            transition: all 1s;
+        }
+
+        .translate-fade-enter, .translate-fade-leave-to {
+            opacity: 0;
+        }
+
+        .translate-fade-enter {
+            transform: translateX(31px);
+        }
+
+        .translate-fade-leave-to {
+            transform: translateX(-31px);
+        }
+
+        .absolute-wrapper {
+            position: relative;
+        }
+
+        .absolute-wrapper div {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button
+            @click=";view = (view == 'v-a')? 'v-b' : 'v-a'">
+        Переключить
+    </button>
+    <div class="absolute-wrapper">
+        <transition name="translate-fade" mode="out-in" appear>
+            <component :is="view"></component>
+        </transition>
+    </div>
+</div>
+<script>
+
+    let app = new Vue({
+        el:"#app",
+        data: {
+            view: 'v-a'
+        },
+        components:{
+            'v-a':{
+                template: "<div>Компонент A</div>"
+            },
+            'v-b':{
+                template: "<div>Компонент B</div>"
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

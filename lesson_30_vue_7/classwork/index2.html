@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .translate-fade-enter-active, .translate-fade-leave-active {
+            transition: all 1s;
+        }
+
+        .translate-fade-enter, .translate-fade-leave-to {
+            opacity: 0;
+        }
+
+        .translate-fade-enter {
+            transform: translateX(31px);
+        }
+
+        .translate-fade-leave-to {
+            transform: translateX(-31px);
+        }
+
+        .absolute-wrapper {
+            position: relative;
+        }
+
+        .absolute-wrapper button {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="show=!show">Переключить</button>
+    <div class="absolute-wrapper">
+<!--        <transition name="translate-fade" mode="in-out">-->
+        <transition name="translate-fade" mode="out-in">
+            <button v-if="show" key="save">
+                Сохранить
+            </button>
+            <button v-else key="edit">
+                Редактировать
+            </button>
+        </transition>
+    </div>
+</div>
+<script>
+
+    let app = new Vue({
+        el:"#app",
+        data: {
+            show: true
+        }
+    });
+
+</script>
+</body>
+</html>

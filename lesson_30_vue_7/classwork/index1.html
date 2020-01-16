@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        /*.bounce-enter-active {
+            animation: bounce 0.5s;
+        }
+
+        .bounce-leave-active {
+            animation: bounce 0.5s reverse;
+        }*/
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="show=!show">Переключить</button>
+    <transition
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+            @enter-cancelled="enterCancelled"
+            @before-leave="beforeLeave"
+            @leave="leave"
+            @after-leave="afterLeave"
+            @leave-cancelled="leaveCancelled"
+            name="bounce"
+            :css="false">
+        <p v-if="show">
+            Привет Привет Привет Привет Привет Привет Привет
+        </p>
+    </transition>
+</div>
+<script>
+    function addEventListener(el, done) {
+        el.addEventListener("animationend", function () {
+            el.style = "";
+            done();
+        });
+    }
+
+    let app = new Vue({
+        el: "#app",
+        data: {
+            show: true
+        },
+        methods: {
+            beforeEnter: function (el) {
+                console.log('beforeEnter');
+            },
+            enter: function (el, done) {
+                console.log('enter');
+                addEventListener(el, done);
+                el.style.animation = "bounce-in 3s";
+            },
+            afterEnter: function () {
+                console.log('afterEnter');
+            },
+            enterCancelled: function (el) {
+                console.log('enterCancelled');
+            },
+            beforeLeave: function (el) {
+                console.log('beforeLeave');
+            },
+            leave: function (el, done) {
+                console.log('leave');
+                addEventListener(el, done);
+                el.style.animation = "bounce-in 3s reverse";
+            },
+            afterLeave: function (el) {
+                console.log('afterLeave');
+            },
+            leaveCancelled: function (el) {
+                console.log('leaveCancelled');
+            },
+        }
+    });
+
+</script>
+</body>
+</html>
