@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <p>Корень: {{count}}</p>
+    <p>Модуль А: {{countA}}</p>
+    <p>Модуль B: {{countB}}</p>
+    <button @click="add">+</button>
+</div>
+<script>
+    let moduleA = {
+        namespaced:true,
+        state:{
+            count: 0,
+            countA: 0
+        },
+        mutations:{
+            increment: (state)=>{
+                state.count++ ;
+            }
+        },
+        actions:{
+            incrementAsync(context){
+                setTimeout(function(){
+                    context.commit('increment');
+                }, 1000);
+            }
+        }
+    };
+
+    let moduleB = {
+        namespaced:true,
+        state:{
+            count: 0
+        },
+        mutations:{
+            increment: (state)=>{
+                state.count++ ;
+            }
+        },
+        actions:{
+            incrementAsync({commit}){
+                setTimeout(function(){
+                    commit('increment');
+                }, 1000);
+            }
+        }
+    };
+
+
+    const storeVuex = new Vuex.Store({
+        state:{
+            count: 0
+        },
+        modules: {
+            a: moduleA,
+            b: moduleB
+        }
+    });
+
+    let app = new Vue({
+        el:"#app",
+        store: storeVuex,
+        computed: {
+            ...Vuex.mapState({
+                count:(state)=>state.count,
+                countA:(state)=>state.a.count,
+                countB:(state)=>state.b.count
+            })
+        },
+        methods:{
+            ...Vuex.mapActions({
+                add:'a/incrementAsync'
+            })
+        }
+    });
+</script>
+</body>
+</html>
